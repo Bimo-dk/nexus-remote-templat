@@ -9,7 +9,7 @@ import { EntryComponent } from './remote-entry/entry.component';
   template: `
     <main style="padding: 24px; max-width: 960px; margin: 0 auto;">
       <h1>__REMOTE_NAME__ — standalone view</h1>
-      <p>Denne side ses kun når remoten køres isoleret. I produktion eksponeres entry-komponenten via Native Federation.</p>
+      <p>This page is only visible when the remote runs in isolation. In production, the entry component is exposed via Native Federation.</p>
       <app-remote-entry></app-remote-entry>
     </main>
   `,

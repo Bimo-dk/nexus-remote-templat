@@ -1,46 +1,46 @@
 # remote-templat
 
-Template-repo til Bimo-Nexus remote micro frontends. Klones af `bnx generate remote` (fra `@bimo-dk/nexus-cli`), som derefter substituerer `__REMOTE_NAME__` og `__REMOTE_ROUTE__` placeholders med rigtige værdier.
+Template repo for Bimo-Nexus remote micro frontends. Cloned by `bnx generate remote` (from `@bimo-dk/nexus-cli`), which then substitutes `__REMOTE_NAME__` and `__REMOTE_ROUTE__` placeholders with real values.
 
-## Brug (via CLI)
+## Usage (via CLI)
 
 ```bash
 bnx generate remote
-# → prompt for remote name (camelCase) + route path (kebab-case)
-# → CLI kloner dette repo til ./<name>/ og substituerer placeholders
+# -> prompts for remote name (camelCase) + route path (kebab-case)
+# -> CLI clones this repo to ./<name>/ and substitutes placeholders
 ```
 
-## Placeholders i template
+## Placeholders in the template
 
-| Placeholder | Substitueres med | Findes i |
+| Placeholder | Substituted with | Found in |
 |---|---|---|
-| `__REMOTE_NAME__` | camelCase remote-navn (fx `checkout`) | `package.json`, `federation.config.json`, `angular.json`, `nginx.conf`, alle `src/**/*.ts` der nævner navnet |
-| `__REMOTE_ROUTE__` | kebab-case route (fx `checkout`) | `src/app/remote-entry/entry.component.ts` |
+| `__REMOTE_NAME__` | camelCase remote name (e.g. `checkout`) | `package.json`, `federation.config.json`, `angular.json`, `nginx.conf`, any `src/**/*.ts` that mentions the name |
+| `__REMOTE_ROUTE__` | kebab-case route (e.g. `checkout`) | `src/app/remote-entry/entry.component.ts` |
 
-## Struktur
+## Structure
 
-Minimal Angular 19 standalone-applikation med Native Federation forberedt:
+Minimal Angular 19 standalone application with Native Federation prepared:
 
 ```
 src/
 ├── index.html, main.ts, bootstrap.ts, styles.scss
 └── app/
-    ├── app.component.ts (standalone view — kun til standalone-kørsel)
+    ├── app.component.ts (standalone view — only for standalone runs)
     ├── app.config.ts, app.routes.ts
     └── remote-entry/
-        └── entry.component.ts  ← din rigtige kode kommer her (eksponeres som ./RemoteEntry)
+        └── entry.component.ts  -> your actual code goes here (exposed as ./RemoteEntry)
 ```
 
-## Manuel test efter klon
+## Manual test after cloning
 
 ```bash
-cd <din-nye-remote>
+cd <your-new-remote>
 npm install
 npm start
-# → http://localhost:8700 viser standalone view
+# -> http://localhost:8700 shows the standalone view
 ```
 
-For at registrere den hos en kørende Nexus registry:
+To register it with a running Nexus registry:
 
 ```bash
 BIMO_TOKEN=... bnx publish
