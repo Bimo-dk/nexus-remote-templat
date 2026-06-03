@@ -1,0 +1,12 @@
+{
+  "_comment": "Auto-replaced by bnx generate remote. Filnavnet federation.config.json er Native Federation library convention.",
+  "name": "__REMOTE_NAME__",
+  "exposes": {
+    "./RemoteEntry": "./src/app/remote-entry/entry.component.ts"
+  },
+  "shared": {
+    "@angular/core": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+    "@angular/common": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+    "@angular/router": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" }
+  }
+}
