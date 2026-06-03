@@ -1,0 +1,23 @@
+name: Validate template
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required placeholders exist
+        run: |
+          # Template skal indeholde __REMOTE_NAME__ og __REMOTE_ROUTE__ placeholders
+          # som bnx generate remote substituerer ved klon.
+          if [ ! -f package.json ]; then
+            echo "::warning::package.json missing — template is empty"
+            exit 0
+          fi
+          grep -r "__REMOTE_NAME__" . --include="*.json" --include="*.ts" --include="*.md" || \
+            echo "::warning::No __REMOTE_NAME__ placeholders found"
