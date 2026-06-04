@@ -43,5 +43,5 @@ npm start
 To register it with a running Nexus registry:
 
 ```bash
-BIMO_TOKEN=... bnx publish
+NEXUS_TOKEN=... bnx publish
 ```
