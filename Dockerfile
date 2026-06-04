@@ -13,9 +13,11 @@ COPY src ./src
 RUN npm run build:prod
 
 FROM nginx:alpine
-RUN apk add --no-cache wget
+RUN apk add --no-cache wget gettext
 COPY --from=builder /app/dist/__REMOTE_NAME__/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker-entrypoint.d/40-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
+RUN chmod +x /docker-entrypoint.d/40-runtime-config.sh
 EXPOSE 80
 HEALTHCHECK CMD wget -qO- http://localhost/health || exit 1
 CMD ["nginx", "-g", "daemon off;"]
