@@ -1,6 +1,8 @@
-# remote-templat
+# remote-templat (Angular)
 
-Template repo for Bimo-Nexus remote micro frontends. Cloned by `bnx generate remote` (from `@bimo-dk/nexus-cli`), which then substitutes `__REMOTE_NAME__` and `__REMOTE_ROUTE__` placeholders with real values.
+The **Angular 19** remote scaffold for Nexus. Cloned by `bnx generate remote --framework angular` (from `@bimo-dk/nexus-cli`), which then substitutes `__REMOTE_NAME__` and `__REMOTE_ROUTE__` placeholders with real values.
+
+Sister templates: [`nexus-remote-templat-vue`](../nexus-remote-templat-vue/) (Vue 3), [`nexus-remote-templat-react`](../nexus-remote-templat-react/) (React 18).
 
 ## Usage (via CLI)
 
