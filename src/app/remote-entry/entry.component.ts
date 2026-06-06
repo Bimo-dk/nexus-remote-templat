@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { NexusRemote } from '@bimo-dk/nexus-build';
+import { NexusComponent, NexusRemote } from '@bimo-dk/nexus-build';
 
 @NexusRemote()
+@NexusComponent({
+  title: '__REMOTE_NAME__ entry',
+  description: 'Boilerplate demo component shipped with the Angular remote template.',
+  category: 'demo',
+  tags: ['demo', 'starter'],
+})
 @Component({
   selector: 'app-remote-entry',
   standalone: true,
