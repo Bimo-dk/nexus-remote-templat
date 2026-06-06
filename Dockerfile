@@ -1,12 +1,10 @@
 # syntax=docker/dockerfile:1.7
-# Build manually: docker build --secret id=node_auth_token,env=NODE_AUTH_TOKEN .
+# @bimo-dk/* packages are public on npmjs.com — no auth required.
 FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json .npmrc ./
-RUN --mount=type=secret,id=node_auth_token,required=true \
-    NODE_AUTH_TOKEN=$(cat /run/secrets/node_auth_token) \
-    npm install --no-audit --no-fund --legacy-peer-deps
+RUN npm install --no-audit --no-fund --legacy-peer-deps
 
 COPY tsconfig*.json angular.json federation.config.js ./
 COPY src ./src
@@ -19,5 +17,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker-entrypoint.d/40-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
 RUN chmod +x /docker-entrypoint.d/40-runtime-config.sh
 EXPOSE 80
-HEALTHCHECK CMD wget -qO- http://localhost/health || exit 1
+HEALTHCHECK CMD wget -qO- http://127.0.0.1/health || exit 1
 CMD ["nginx", "-g", "daemon off;"]
