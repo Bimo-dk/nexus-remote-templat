@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { NexusComponent, NexusRemote } from '@bimo-dk/nexus-build';
 
 @NexusRemote()
@@ -27,6 +28,23 @@ import { NexusComponent, NexusRemote } from '@bimo-dk/nexus-build';
 export class EntryComponent {
   readonly count = signal(0);
   increment(): void { this.count.update((v) => v + 1); }
+}
+
+/**
+ * BYOF federation entry — lets Vue/React/vanilla hosts mount this
+ * Angular remote without sharing Angular with them. The host calls
+ * `mount(el)`; we append a host element with our selector under it,
+ * bootstrap a standalone Angular app on that element, and return a
+ * teardown that destroys the app reference.
+ */
+export async function mount(el: HTMLElement): Promise<() => void> {
+  const host = document.createElement('app-remote-entry');
+  el.appendChild(host);
+  const appRef = await bootstrapApplication(EntryComponent);
+  return () => {
+    appRef.destroy();
+    if (host.parentNode === el) el.removeChild(host);
+  };
 }
 
 export default EntryComponent;
