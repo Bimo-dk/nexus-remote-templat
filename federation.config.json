@@ -1,12 +1,8 @@
 {
-  "_comment": "Auto-replaced by bnx generate remote. Filnavnet federation.config.json er Native Federation library convention.",
+  "_comment": "Auto-replaced by bnx generate remote. Shared block is empty by default - federation.config.js applies shareAll() automatically. Add explicit overrides here only when you need to pin a package to a specific version.",
   "name": "__REMOTE_NAME__",
   "exposes": {
     "./RemoteEntry": "./src/app/remote-entry/entry.component.ts"
   },
-  "shared": {
-    "@angular/core": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
-    "@angular/common": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
-    "@angular/router": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" }
-  }
+  "shared": {}
 }

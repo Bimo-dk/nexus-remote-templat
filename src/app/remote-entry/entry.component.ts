@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideExperimentalZonelessChangeDetection, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { NexusComponent, NexusRemote } from '@bimo-dk/nexus-build';
 
@@ -40,7 +40,14 @@ export class EntryComponent {
 export async function mount(el: HTMLElement): Promise<() => void> {
   const host = document.createElement('app-remote-entry');
   el.appendChild(host);
-  const appRef = await bootstrapApplication(EntryComponent);
+  // provideZonelessChangeDetection() lets this remote bootstrap inside a
+  // Vue or React host where zone.js is not loaded. The host calls mount()
+  // without bringing Angular's Zone runtime, so the default Zone-based
+  // change detection would crash with NG0908 ("Zone not loaded"). Using
+  // the zoneless scheduler keeps us framework-agnostic. (B-22)
+  const appRef = await bootstrapApplication(EntryComponent, {
+    providers: [provideExperimentalZonelessChangeDetection()],
+  });
   return () => {
     appRef.destroy();
     if (host.parentNode === el) el.removeChild(host);
